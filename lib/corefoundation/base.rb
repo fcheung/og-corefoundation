@@ -52,7 +52,7 @@ module CF
 
       def call *ignored
         if @address != 0
-          CF.release(FFI::Pointer.new(@address))
+          CF.release(FFI::Pointer.new(:pointer, @address))
           @address = 0
         end
       end
