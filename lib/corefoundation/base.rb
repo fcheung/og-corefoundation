@@ -47,13 +47,15 @@ module CF
     # @private
     class Releaser
       def initialize(ptr)
-        @address  = ptr.address
+        # this creates a pointer that has the same value
+        # without creating a gc reference to the original ptr
+        @ptr = FFI::MemoryPointer.new(:pointer).write_pointer(ptr).read_pointer
       end
 
       def call *ignored
-        if @address != 0
-          CF.release(FFI::Pointer.new(:pointer, @address))
-          @address = 0
+        if @ptr && !@ptr.null?
+          CF.release(@ptr)
+          @ptr = nil
         end
       end
     end
