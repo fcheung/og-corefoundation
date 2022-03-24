@@ -1,6 +1,10 @@
 # Changelog
 
 
+## 0.2.3
+
+Fix release_on_gc for values where the high bit is set
+
 ## 0.2.2
 
 fix finalizer exception (again)
